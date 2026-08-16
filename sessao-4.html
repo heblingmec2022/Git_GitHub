@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Branches</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f7ff;
+        color: #0f172a;
+      }
+      .container {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      textarea {
+        width: 100%;
+        min-height: 320px;
+        resize: vertical;
+        padding: 16px;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-family: inherit;
+      }
+      .voltar {
+        display: inline-block;
+        text-decoration: none;
+        color: #4f46e5;
+        font-weight: bold;
+      }
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      #save-status {
+        color: #0f766e;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      #clear-note {
+        background: #ef4444;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 14px;
+        cursor: pointer;
+      }
+
+      body.dark-mode {
+        background: linear-gradient(135deg, #020817 0%, #0f172a 100%);
+        color: #e2e8f0;
+      }
+
+      body.dark-mode .container {
+        background: rgba(15, 23, 42, 0.9);
+        box-shadow: 0 18px 40px rgba(2, 6, 23, 0.6);
+      }
+
+      body.dark-mode .voltar {
+        color: #c4b5fd;
+      }
+
+      body.dark-mode textarea {
+        background: #0f172a;
+        color: #e2e8f0;
+        border-color: #475569;
+      }
+
+      body.dark-mode #save-status {
+        color: #86efac;
+      }
+    </style>
+  </head>
+  <body data-page-key="git-note-4">
+    <div class="container">
+      <div class="topbar">
+        <a class="voltar" href="index.html">← Voltar</a>
+        <strong>Branches</strong>
+      </div>
+      <h1>Branches</h1>
+      <p>Use este espaço para anotar suas dúvidas sobre criação de branches, switch, checkout e fluxo de trabalho por ramo.</p>
+      <textarea id="note-input" placeholder="Exemplo: Qual a diferença entre branch e tag? Como criar uma branch para uma nova funcionalidade?"></textarea>
+      <div class="actions">
+        <span id="save-status">Salvo no navegador</span>
+        <button id="clear-note" type="button">Limpar</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
