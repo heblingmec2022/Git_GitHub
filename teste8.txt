@@ -1,3 +1,5 @@
 Criando arquivo e colaborando com projeto principal.
 
 teste
+
+Adicionando nova linha para testar git revert
