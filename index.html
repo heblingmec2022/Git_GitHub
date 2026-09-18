@@ -1,658 +1,256 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Git e GitHub - Anotações</title>
+    <meta
+      name="description"
+      content="Git and GitHub study notes, from beginner to advanced topics."
+    />
+    <title>Git and GitHub Study Notes</title>
+
     <style>
       :root {
-        --bg: #eef4ff;
-        --panel: rgba(255, 255, 255, 0.9);
+        --background: #eef4ff;
+        --surface: #ffffff;
         --text: #0f172a;
         --muted: #475569;
         --primary: #4f46e5;
-        --primary-soft: #eef2ff;
-        --shadow: 0 18px 35px rgba(15, 23, 42, 0.12);
-        --card-1: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-        --card-2: linear-gradient(135deg, #dbeafe, #bfdbfe);
-        --card-3: linear-gradient(135deg, #dcfce7, #bbf7d0);
-        --card-4: linear-gradient(135deg, #fef3c7, #fde68a);
-        --card-5: linear-gradient(135deg, #ffe4e6, #fecdd3);
-        --card-6: linear-gradient(135deg, #ede9fe, #ddd6fe);
-        --card-7: linear-gradient(135deg, #cffafe, #a5f3fc);
-        --card-8: linear-gradient(135deg, #f5d0fe, #f0abfc);
-        --card-9: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        --border: #dbe4f0;
+        --code: #0f172a;
       }
 
-      body.dark-mode {
-        --bg: #0f172a;
-        --panel: rgba(15, 23, 42, 0.9);
-        --text: #e2e8f0;
-        --muted: #dbe4f2;
-        --primary: #8b5cf6;
-        --primary-soft: rgba(139, 92, 246, 0.18);
-        --shadow: 0 18px 35px rgba(2, 6, 23, 0.55);
-        --card-copy: #1f2937;
-        --card-muted: #334155;
+      * {
+        box-sizing: border-box;
       }
 
-      body.dark-mode .topbar {
-        background: rgba(15, 23, 42, 0.82);
-        border-bottom-color: rgba(148, 163, 184, 0.2);
+      html {
+        scroll-behavior: smooth;
       }
-
-      body.dark-mode .nav a,
-      body.dark-mode .brand,
-      body.dark-mode .theme-toggle,
-      body.dark-mode .stat,
-      body.dark-mode .save-indicator {
-        color: var(--text);
-      }
-
-      body.dark-mode .nav a:hover {
-        background: rgba(139, 92, 246, 0.18);
-      }
-
-      body.dark-mode .theme-toggle {
-        background: rgba(139, 92, 246, 0.18);
-        border-color: rgba(148, 163, 184, 0.25);
-      }
-
-      body.dark-mode .stat {
-        background: rgba(15, 23, 42, 0.7);
-        border-color: rgba(148, 163, 184, 0.2);
-      }
-
-      body.dark-mode .stat span,
-      body.dark-mode .subtitle {
-        color: var(--muted);
-      }
-
-      body.dark-mode .card {
-        color: var(--card-copy);
-      }
-
-      body.dark-mode .card h2,
-      body.dark-mode .card p,
-      body.dark-mode .card li,
-      body.dark-mode .card .save-indicator,
-      body.dark-mode .card .toggle-details {
-        color: var(--card-copy);
-      }
-
-      body.dark-mode .card p,
-      body.dark-mode .card li {
-        opacity: 0.9;
-      }
-
-      body.dark-mode .card .card-icon,
-      body.dark-mode .card .card-number,
-      body.dark-mode .card .save-indicator,
-      body.dark-mode .toggle-details {
-        background: rgba(255, 255, 255, 0.68);
-      }
-
-      * { box-sizing: border-box; }
-
-      html { scroll-behavior: smooth; }
 
       body {
         margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #edf3ff 0%, #f8fafc 100%);
+        background: var(--background);
         color: var(--text);
-        transition: background 0.25s ease, color 0.25s ease;
-      }
-
-      body.dark-mode {
-        background: linear-gradient(135deg, #020817 0%, #0f172a 100%);
-      }
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-      }
-
-      .topbar-inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 18px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-      }
-
-      .brand {
-        font-size: 1.25rem;
-        font-weight: 800;
-        color: var(--primary);
-      }
-
-      .nav {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .nav a {
-        text-decoration: none;
-        color: var(--text);
-        font-weight: 600;
-        padding: 8px 12px;
-        border-radius: 10px;
-        transition: background 0.2s ease;
-      }
-
-      .nav a:hover {
-        background: var(--primary-soft);
-      }
-
-      .theme-toggle {
-        border: 1px solid rgba(148, 163, 184, 0.3);
-        background: var(--primary-soft);
-        color: var(--text);
-        border-radius: 999px;
-        padding: 9px 14px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        cursor: pointer;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 50px 20px 70px;
-      }
-
-      .hero {
-        text-align: center;
-        margin-bottom: 42px;
-      }
-
-      .eyebrow {
-        display: inline-block;
-        background: var(--primary-soft);
-        color: var(--primary);
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        border-radius: 999px;
-        padding: 8px 14px;
-        font-size: 0.74rem;
-      }
-
-      h1 {
-        margin: 18px 0 12px;
-        font-size: clamp(2.2rem, 5vw, 3.3rem);
-      }
-
-      .subtitle {
-        margin: 0 auto;
-        max-width: 700px;
-        color: var(--muted);
-        font-size: 1.08rem;
-      }
-
-      .stats {
-        display: flex;
-        justify-content: center;
-        gap: 18px;
-        flex-wrap: wrap;
-        margin-top: 28px;
-      }
-
-      .stat {
-        min-width: 140px;
-        background: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(148, 163, 184, 0.2);
-        border-radius: 16px;
-        padding: 16px 14px;
-        box-shadow: 0 12px 22px rgba(15, 23, 42, 0.04);
-      }
-
-      .stat strong {
-        display: block;
-        font-size: 1.6rem;
-        color: var(--primary);
-      }
-
-      .stat span {
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        align-items: stretch;
-        gap: 22px;
-      }
-
-      .card {
-        display: flex;
-        flex-direction: column;
-        color: var(--text);
-        background: var(--panel);
-        border-radius: 22px;
-        padding: 22px;
-        height: 280px;
-        min-height: 0;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        border: 1px solid rgba(148, 163, 184, 0.18);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .card.expanded {
-        height: auto;
-        min-height: 280px;
-        overflow: visible;
-      }
-
-      .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 22px 40px rgba(15, 23, 42, 0.18);
-      }
-
-      .card:nth-child(1) { background: var(--card-1); }
-      .card:nth-child(2) { background: var(--card-2); }
-      .card:nth-child(3) { background: var(--card-3); }
-      .card:nth-child(4) { background: var(--card-4); }
-      .card:nth-child(5) { background: var(--card-5); }
-      .card:nth-child(6) { background: var(--card-6); }
-      .card:nth-child(7) { background: var(--card-7); }
-      .card:nth-child(8) { background: var(--card-8); }
-      .card:nth-child(9) { background: var(--card-9); }
-
-      .card-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 14px;
-      }
-
-      .card-icon {
-        display: inline-flex;
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.7);
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-        box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.12);
-      }
-
-      .card-number {
-        display: inline-flex;
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.7);
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        margin-bottom: 18px;
-      }
-
-      .card h2 {
-        margin: 0 0 12px;
-        font-size: 1.35rem;
-      }
-
-      .card p,
-      .card li {
-        margin: 0 0 14px;
-        color: var(--muted);
+        font-family: Arial, sans-serif;
         line-height: 1.6;
       }
 
-      .card > p,
-      .card > ol {
-        position: relative;
-        overflow: hidden;
+      body.dark-mode {
+        --background: #0f172a;
+        --surface: #1e293b;
+        --text: #e2e8f0;
+        --muted: #cbd5e1;
+        --border: #334155;
+        --code: #020617;
       }
 
-      .card > p {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        line-clamp: 2;
-        -webkit-line-clamp: 2;
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
       }
 
-      .card > ol {
-        max-height: 112px;
-        padding-right: 4px;
+      .topbar {
+        width: min(1100px, 92%);
+        margin: auto;
+        padding: 1rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
       }
 
-      .card > ol::after {
-        content: "...";
-        position: absolute;
-        right: 2px;
-        bottom: 0;
-        padding-left: 8px;
-        background: linear-gradient(90deg, transparent, currentColor 35%);
+      .brand {
+        color: var(--primary);
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      nav a,
+      button {
+        color: var(--text);
+        font: inherit;
+      }
+
+      nav a {
+        text-decoration: none;
+      }
+
+      nav a:hover {
+        color: var(--primary);
+      }
+
+      button {
+        border: 1px solid var(--border);
+        border-radius: 0.5rem;
+        background: var(--surface);
+        cursor: pointer;
+        padding: 0.45rem 0.7rem;
+      }
+
+      main {
+        width: min(900px, 92%);
+        margin: 0 auto;
+        padding: 3rem 0;
+      }
+
+      .hero {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .hero h1 {
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+        font-size: clamp(2rem, 5vw, 3.5rem);
+      }
+
+      .hero p {
         color: var(--muted);
-        font-weight: 800;
+        font-size: 1.1rem;
       }
 
-      .card.expanded > p {
-        display: block;
-        line-clamp: unset;
-        -webkit-line-clamp: unset;
+      .content {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 1rem;
+        padding: clamp(1.2rem, 4vw, 3rem);
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
       }
 
-      .card.expanded > ol {
-        max-height: none;
+      .content h1,
+      .content h2,
+      .content h3 {
+        color: var(--primary);
+        line-height: 1.25;
+        margin-top: 2rem;
       }
 
-      .card.expanded > ol::after {
+      .content h1 {
         display: none;
       }
 
-      .card-details {
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        margin-top: 0;
-        transform: translateY(-4px);
-        transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease, transform 0.25s ease;
+      .content a {
+        color: var(--primary);
       }
 
-      .card.expanded .card-details {
-        max-height: 200px;
-        opacity: 1;
-        margin-top: 8px;
-        transform: translateY(0);
+      .content code {
+        padding: 0.15rem 0.35rem;
+        border-radius: 0.25rem;
+        background: var(--border);
       }
 
-      .card-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        margin-top: auto;
+      .content pre {
+        overflow-x: auto;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background: var(--code);
+        color: #e2e8f0;
       }
 
-      .toggle-details,
-      .card-link {
-        border: none;
-        border-radius: 12px;
-        padding: 10px 14px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        text-decoration: none;
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      .content pre code {
+        padding: 0;
+        background: transparent;
       }
 
-      .toggle-details {
-        background: rgba(255, 255, 255, 0.75);
-        color: var(--text);
-        box-shadow: 0 6px 12px rgba(15, 23, 42, 0.08);
+      .content li {
+        margin-bottom: 0.35rem;
       }
 
-      .card-link {
-        background: linear-gradient(135deg, var(--primary), #7c3aed);
-        color: white;
-        box-shadow: 0 10px 18px rgba(79, 70, 229, 0.28);
-        padding: 10px 16px;
+      footer {
+        padding: 2rem;
+        color: var(--muted);
+        text-align: center;
       }
 
-      .toggle-details:hover,
-      .card-link:hover {
-        transform: translateY(-1px);
-        opacity: 0.98;
-      }
+      @media (max-width: 650px) {
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
 
-      .save-indicator {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.7);
-        color: var(--text);
-        border-radius: 999px;
-        padding: 6px 10px;
-        font-size: 0.72rem;
-        font-weight: 700;
-        margin-top: 10px;
+        nav {
+          flex-wrap: wrap;
+        }
       }
     </style>
   </head>
+
   <body>
-    <header class="topbar">
-      <div class="topbar-inner">
-        <div class="brand">GitHub Notes</div>
-        <nav class="nav">
-          <a href="index.html">Início</a>
-          <a href="#sessions">Sessões</a>
-          <a href="sessao-1.html">Primeira dúvida</a>
-          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema">🌙</button>
+    <header>
+      <div class="topbar">
+        <a class="brand" href="#">Git & GitHub Study Notes</a>
+
+        <nav aria-label="Main navigation">
+          <a href="#readme-content">Study Guide</a>
+          <a href="README.md">Raw README</a>
+          <button id="theme-toggle" type="button">Toggle theme</button>
         </nav>
       </div>
     </header>
 
-    <main class="container">
+    <main>
       <section class="hero">
-        <span class="eyebrow">Estudos sobre</span>
-        <p>Via Udemy by: Geek University</p>
-        <p>Curso de Git e GitHub essencial para o desenvolvedor.</p>
-        <h1>Git e GitHub</h1>
-        <p class="subtitle">Organizando minhas dúvidas, anotações e aprendizados sobre Git, GitHub e fluxo de trabalho com um sistema simples que salva tudo no navegador.</p>
-
-        <div class="stats">
-          <div class="stat">
-            <strong>9</strong>
-            <span>Temas</span>
-          </div>
-          <div class="stat">
-            <strong>100%</strong>
-            <span>Roda Local</span>
-          </div>
-          <div class="stat">
-            <strong>0</strong>
-            <span>Falta de organização</span>
-          </div>
-        </div>
+        <h1>Git and GitHub Study Notes</h1>
+        <p>
+          A complete study guide covering Git and GitHub from basic to advanced
+          concepts.
+        </p>
       </section>
 
-      <section id="sessions" class="grid">
-        <article class="card" data-note-key="git-note-1">
-          <div class="card-header">
-            <div class="card-icon">📘</div>
-            <div class="card-number">01</div>
-          </div>
-          <h2>Apresentação</h2>
-          <p>Visão geral do curso e como o estudo de Git e GitHub será organizado.</p>
-          <div class="card-details">
-            <p>Este tema mostra o contexto do curso, a proposta de aprendizado e a organização dos assuntos para facilitar o estudo e as anotações ao longo do caminho.</p>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-1.html">Abrir sessão</a>
-          </div>
-          <span class="save-indicator">Sem anotações</span>
-        </article>
-
-        <article class="card" data-note-key="git-note-2">
-          <div class="card-header">
-            <div class="card-icon">⚙️</div>
-            <div class="card-number">02</div>
-          </div>
-          <h2>Introdução ao Git e Preparação do Ambiente</h2>
-          <ol>
-            <li>O que é o Git? Não é GitHub</li>
-            <li>Instalação e configuração</li>
-            <li>Primeiros passos com o Git</li>
-            <li>Conceitos básicos de versionamento</li>
-          </ol>
-          <div class="card-details">
-            <p>Neste tópico, você estuda a diferença entre Git e GitHub, prepara o ambiente de trabalho e entende os conceitos básicos do versionamento de código.</p>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-2.html">Abrir sessão</a>
-          </div>
-        </article>
-
-        <article class="card" data-note-key="git-note-3">
-          <div class="card-header">
-            <div class="card-icon">💻</div>
-            <div class="card-number">03</div>
-          </div>
-          <h2>Git Básico</h2>
-          <ol>
-            <li>Comandos básicos do Git</li>
-            <li>Como criar um repositório local</li>
-            <li>Como versionar arquivos, ciclo de vida</li>
-            <li>Como criar commits e mensagens de commit</li>
-            <li>Comandos: git init, git add (ou git add .), git commit, git status, git config core.pager cat/less, 
-              git log (--oneline, --before/afte "xxxx-xx-xx", --since "2 days ago", --autor="", git help log, git checkout, 
-              git mv (teste.html teste1.html), git rm (nome do arquivo), git diff --staged), git commit --amend -m "..."
-              git restore --staged "file", git reset HEAD --hard (refaz últimas modificações indesejadas e volta para o penúltimo commit)</li>
-            <li>gitignore e arquivo config (user local e global)</li>
-          </ol>
-          <div class="card-details">
-            <p>Você vai praticar os primeiros comandos do Git, aprender a controlar versões de arquivos e entender melhor como o ciclo de vida de um arquivo funciona na prática.</p>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-3.html">Abrir sessão</a>
-          </div>
-        </article>
-
-        <article class="card" data-note-key="git-note-4">
-          <div class="card-header">
-            <div class="card-icon">🌿</div>
-            <div class="card-number">04</div>
-          </div>
-          <h2>Git Intermediário</h2>
-          <ol>
-            <li>Branches</li>
-            <li>Como criar e alternar entre branches</li>
-            <li>Como unir alterações de diferentes branches</li>
-            <li>Git branch "nome da branch", git checkout "nome da branch", git switch "nome da branch", git branch -d ou -D para excluir arquivos e branches</li>
-          </ol>
-          <div class="card-details">
-            <p>Este tema mostra como separar o trabalho em ramificações do projeto, testar ideias sem mexer na linha principal e manter o desenvolvimento mais organizado.</p>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-4.html">Abrir sessão</a>
-          </div>
-          <span class="save-indicator">Sem anotações</span>
-        </article>
-
-        <article class="card" data-note-key="git-note-5">
-          <div class="card-header">
-            <div class="card-icon">⚠️</div>
-            <div class="card-number">05</div>
-          </div>
-          <h2>Merge (clone, fetch) e conflitos - Intermediário</h2>
-          <div class="card-details">
-            <ol>
-              <li>Como unir alterações de diferentes branches</li>
-              <li>Comandos: git merge, git rebase, git checkout -b "nome da func"</li>
-              <li>Comandos: git clone "url do repositório" (fazer a clonagem num pasta independente para continuar o trabalho)</li>
-              <li>Comando git fetch (baixa os arquivos do projeto sem fazer o merge). Após esse comando, é possível visualizar as 
-                alterações e decidir se deseja integrá-las com git rebase.</li>
-              <li>Comando: git pull é uma junção do merge com rebase (para pegar o novo arquivo da pasta principal e levar para a clonada)</li>
-              <li>Comandos: git push, git tag, e atribuições a novos usuários no projeto</li>
-            </ol>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-5.html">Abrir sessão</a>
-          </div>
-          <span class="save-indicator">Sem anotações</span>
-        </article>
-
-        <article class="card" data-note-key="git-note-6">
-          <div class="card-header">
-            <div class="card-icon">🔗</div>
-            <div class="card-number">06</div>
-          </div>
-
-          <h2>Git Avançado</h2>
-
-          <div class="card-details">
-            <ol>
-              <li>Criando novo repositório no GitHub.</li>
-              <li>Comando: git remote add origin "url do repositório", git remote -v</li>
-              <li>Comando: git push -u origin main</li>
-              <li>Usando git config credential.helper store (para armazenar credenciais no repositório atual).</li>
-              <li>Comandos: git revert, git reset, git reflog, git clean</li>
-              <li>Como usar tags para marcar versões importantes do projeto</li>
-              <li>Comando: git tag -a v1.0 -m "mensagem da tag"</li>
-              <li>Comando: Usando git push para testar colaboradores externos incluídos no projeto principal.</li>
-              <li>Comando: git checkout -- . (desfaz alterações locais em todos os arquivos), git checkout "nome do arquivo"</li>
-              <li>Comando: git revert "hash do commit" (desfaz alterações de um commit específico)</li>
-              <li>Comando: git reset HEAD "nome do arquivo" (desfaz alterações locais em um arquivo específico), ou git reset --soft ou --mixed ou --hard HEAD~1</li>
-            </ol>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-6.html">Abrir sessão</a>
-          </div>
-        </article>
-
-        <article class="card" data-note-key="git-note-7">
-          <div class="card-header">
-            <div class="card-icon">🔀</div>
-            <div class="card-number">07</div>
-          </div>
-          <h2>Pull requests</h2>
-          <p>Como revisar código, colaborar e enviar alterações de forma organizada.</p>
-          <div class="card-details">
-            <p>Esse tema mostra como abrir pull requests, comentar em mudanças de código e contribuir em equipe de maneira organizada e eficiente.</p>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-7.html">Abrir sessão</a>
-          </div>
-          <span class="save-indicator">Sem anotações</span>
-        </article>
-
-        <article class="card" data-note-key="git-note-8">
-          <div class="card-header">
-            <div class="card-icon">🚀</div>
-            <div class="card-number">08</div>
-          </div>
-          <h2>GitHub Pages e deploy</h2>
-          <p>Como publicar projetos, páginas estáticas e disponibilizar o resultado.</p>
-          <div class="card-details">
-            <p>Este tema explica como publicar sites ou projetos simples no GitHub Pages e entender o processo de deploy para deixar o conteúdo disponível na web.</p>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-8.html">Abrir sessão</a>
-          </div>
-          <span class="save-indicator">Sem anotações</span>
-        </article>
-
-        <article class="card" data-note-key="git-note-9">
-          <div class="card-header">
-            <div class="card-icon">✅</div>
-            <div class="card-number">09</div>
-          </div>
-          <h2>Fluxos práticos</h2>
-          <p>Boas práticas para manter organização, clareza e eficiência no dia a dia.</p>
-          <div class="card-details">
-            <p>Este tema reúne hábitos e boas práticas para usar o Git de forma mais eficiente, reduzir erros e manter um fluxo de trabalho mais profissional.</p>
-          </div>
-          <div class="card-actions">
-            <button class="toggle-details" type="button" aria-expanded="false">Ler mais</button>
-            <a class="card-link" href="sessao-9.html">Abrir sessão</a>
-          </div>
-          <span class="save-indicator">Sem anotações</span>
-        </article>
-      </section>
+      <article id="readme-content" class="content">
+        <p>Loading the README content...</p>
+      </article>
     </main>
 
-    <script src="script.js"></script>
+    <footer>
+      <p>Built for Git and GitHub studies.</p>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+      defer
+    ></script>
+
+    <script>
+      const content = document.getElementById("readme-content");
+      const themeToggle = document.getElementById("theme-toggle");
+
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+      });
+
+      window.addEventListener("load", async () => {
+        try {
+          const response = await fetch("README.md");
+
+          if (!response.ok) {
+            throw new Error("README.md could not be loaded.");
+          }
+
+          const markdown = await response.text();
+          content.innerHTML = marked.parse(markdown);
+        } catch (error) {
+          content.innerHTML = `
+            <h2>Unable to load the study notes</h2>
+            <p>
+              Open the
+              <a href="README.md">README.md file</a>
+              to view the complete content.
+            </p>
+          `;
+        }
+      });
+    </script>
   </body>
 </html>

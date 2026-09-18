@@ -1,574 +1,729 @@
-# Estudos de Git e GitHub
+# Git and GitHub Study Notes
 
-Este repositório reúne estudos e práticas sobre controle de versão com **Git** e colaboração de projetos utilizando o **GitHub**, abrangendo conceitos básicos, intermediários e avançados.
+This repository contains studies and practical exercises on version control with **Git** and project collaboration using **GitHub**, covering basic, intermediate, and advanced concepts.
 
-## 1. Conceitos fundamentais
+## 1. Fundamental Concepts
 
 ### Git
 
-Git é um sistema de controle de versão distribuído. Ele permite:
+Git is a distributed version control system. It allows you to:
 
-- Registrar alterações no código;
-- Recuperar versões anteriores;
-- Trabalhar em equipe;
-- Criar ramificações para novas funcionalidades;
-- Comparar mudanças;
-- Resolver conflitos;
-- Manter um histórico organizado do projeto.
+- Track code changes;
+- Restore previous versions;
+- Work collaboratively;
+- Create branches for new features;
+- Compare changes;
+- Resolve conflicts;
+- Maintain an organized project history.
 
 ### GitHub
 
-GitHub é uma plataforma baseada em Git que oferece:
+GitHub is a platform based on Git that provides:
 
-- Hospedagem de repositórios;
-- Colaboração entre desenvolvedores;
+- Repository hosting;
+- Collaboration tools;
 - Pull Requests;
 - Issues;
-- Code Review;
-- Actions para automação;
+- Code reviews;
+- GitHub Actions;
 - Releases;
-- Documentação de projetos.
+- Project documentation.
 
-### Estados dos arquivos
+### File States
 
-Um arquivo pode estar em diferentes estados:
+A file can have different states:
 
-1. **Untracked** — arquivo ainda não monitorado pelo Git;
-2. **Modified** — arquivo alterado;
-3. **Staged** — alteração adicionada à área de preparação;
-4. **Committed** — alteração registrada em um commit;
-5. **Pushed** — commit enviado para um repositório remoto.
+1. **Untracked** — the file is not being tracked by Git;
+2. **Modified** — the file has been changed;
+3. **Staged** — the changes were added to the staging area;
+4. **Committed** — the changes were recorded in a commit;
+5. **Pushed** — the commit was sent to a remote repository.
 
-## 2. Configuração inicial
+## 2. Initial Configuration
 
-Configurar nome e e-mail:
+Configure your name and email:
 
 ```bash
-git config --global user.name "Seu Nome"
-git config --global user.email "seu@email.com"
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
 
-## Visualizar configurações:
+View Git configuration:
 
+```bash
 git config --list
+```
 
-## Definir o editor padrão:
+Set Visual Studio Code as the default editor:
 
+```bash
 git config --global core.editor "code --wait"
+```
 
-## Verificar a versão instalada:
+Check the installed Git version:
 
+```bash
 git --version
+```
 
-## 3. Criando e clonando repositórios
+## 3. Creating and Cloning Repositories
 
-## Inicializar um repositório local:
+Initialize a local repository:
 
+```bash
 git init
+```
 
-## Clonar um repositório existente:
+Clone an existing repository:
 
-git clone https://github.com/usuario/repositorio.git
+```bash
+git clone https://github.com/user/repository.git
+```
 
-## Clonar utilizando SSH:
+Clone using SSH:
 
-git clone git@github.com:usuario/repositorio.git
+```bash
+git clone git@github.com:user/repository.git
+```
 
-## Verificar o estado atual:
+Check the current repository status:
 
+```bash
 git status
+```
 
 ## 4. Commits
 
-## Adicionar um arquivo à área de preparação:
+Add a file to the staging area:
 
-git add arquivo.txt
+```bash
+git add file.txt
+```
 
-## Adicionar todos os arquivos alterados:
+Add all changed files:
 
+```bash
 git add .
+```
 
-## Criar um commit:
+Create a commit:
 
-git commit -m "Adiciona novo arquivo"
+```bash
+git commit -m "Add new file"
+```
 
-## Adicionar e criar commit em arquivos já monitorados:
+Stage and commit modified tracked files:
 
-git commit -am "Atualiza arquivo"
+```bash
+git commit -am "Update file"
+```
 
-## Boas mensagens de commit devem:
+Good commit messages should:
 
- - Ser objetivas;
- - Usar verbos no presente;
- - Descrever uma única alteração;
- - Evitar mensagens genéricas como alterações ou correções.
+- Be clear and concise;
+- Use action verbs;
+- Describe one specific change;
+- Avoid generic messages such as `changes` or `fixes`.
 
- # Exemplos:
+Examples:
 
- - Adiciona validação do formulário
- - Corrige erro no login
- - Atualiza documentação do projeto
- - Remove código obsoleto
+```text
+Add form validation
+Fix login error
+Update project documentation
+Remove obsolete code
+```
 
- ## 5. Histórico e comparação
+## 5. History and Comparison
 
- ## Visualizar o histórico completo:
+View the complete history:
 
- git log
+```bash
+git log
+```
 
- ## Visualizar o histórico resumido:
+View a summarized history:
 
- git log --oneline
+```bash
+git log --oneline
+```
 
- ## Visualizar histórico com representação gráfica:
+View a graphical history:
 
- git log --oneline --graph --decorate --all
+```bash
+git log --oneline --graph --decorate --all
+```
 
- ## Ver detalhes de um commit:
+View the details of a commit:
 
- git show <hash-do-commit>
+```bash
+git show <commit-hash>
+```
 
- ## Comparar alterações ainda não preparadas:
+Compare unstaged changes:
 
- git diff
+```bash
+git diff
+```
 
- ## Comparar alterações preparadas:
+Compare staged changes:
 
- git diff --staged
+```bash
+git diff --staged
+```
 
- ## Comparar dois commits:
+Compare two commits:
 
- git diff <commit1> <commit2>
+```bash
+git diff <commit1> <commit2>
+```
 
- ## 6. Desfazendo alterações
+## 6. Undoing Changes
 
- git restore arquivo.txt
+Discard uncommitted changes from a file:
 
- ## Remover um arquivo da área de preparação, mantendo suas alterações:
+```bash
+git restore file.txt
+```
 
- git restore --staged arquivo.txt
+Remove a file from the staging area while keeping its changes:
 
- ## Criar um novo commit que desfaz outro:
+```bash
+git restore --staged file.txt
+```
 
- git revert <hash-do-commit>
+Create a new commit that reverses another commit:
 
- ## O git revert é recomendado quando o commit já foi enviado para um repositório compartilhado, pois preserva o histórico.
+```bash
+git revert <commit-hash>
+```
 
- ## 7. Git reset
+`git revert` is recommended when the commit has already been pushed to a shared repository because it preserves the project history.
 
- ## O git reset move o HEAD para outro commit.
+## 7. Git Reset
 
-## Soft
-## Remove o commit, mas mantém as alterações preparadas:
+The `git reset` command moves `HEAD` to another commit.
 
+### Soft Reset
+
+Removes the commit but keeps the changes staged:
+
+```bash
 git reset --soft HEAD~1
+```
 
-## Mixed
+### Mixed Reset
 
-## Remove o commit e mantém as alterações nos arquivos, mas fora da área de preparação:
+Removes the commit and keeps the changes in the working directory:
 
+```bash
 git reset --mixed HEAD~1
+```
 
-## Também pode ser usado simplesmente como:
+This is also the default mode:
 
+```bash
 git reset HEAD~1
+```
 
-## Hard
+### Hard Reset
 
-## Remove o commit e descarta as alterações:
+Removes the commit and discards the changes:
 
+```bash
 git reset --hard HEAD~1
+```
 
-## O modo --hard deve ser usado com cuidado, pois pode apagar alterações permanentemente.
+Use `--hard` carefully because it may permanently delete changes.
 
 ## 8. Branches
 
-## Branches permitem desenvolver funcionalidades ou correções sem modificar diretamente a branch principal.
+Branches allow you to develop features or fixes without directly modifying the main branch.
 
-## Listar branches locais:
+List local branches:
 
+```bash
 git branch
+```
 
-## Listar branches locais e remotas:
+List local and remote branches:
 
+```bash
 git branch -a
+```
 
-## Criar uma branch:
+Create a branch:
 
-git branch nova-funcionalidade
+```bash
+git branch new-feature
+```
 
-## Criar e acessar uma branch:
+Create and switch to a branch:
 
-git switch -c nova-funcionalidade
+```bash
+git switch -c new-feature
+```
 
-## Trocar de branch:
+Switch branches:
 
-git switch nome-da-branch
+```bash
+git switch branch-name
+```
 
-## Excluir uma branch local:
+Delete a local branch:
 
-git branch -d nome-da-branch
+```bash
+git branch -d branch-name
+```
 
-## Forçar a exclusão:
+Force-delete a local branch:
 
-git branch -D nome-da-branch
+```bash
+git branch -D branch-name
+```
 
-## Renomear a branch atual:
+Rename the current branch:
 
-git branch -m novo-nome
+```bash
+git branch -m new-name
+```
 
 ## 9. Merge
 
-## O merge combina o histórico de uma branch com outra.
+The `merge` command combines the history of one branch with another.
 
+```bash
 git switch main
-git merge nova-funcionalidade
+git merge new-feature
+```
 
-## Se houver conflitos, é necessário:
+If conflicts occur:
 
- - Abrir os arquivos conflitantes;
- - Escolher ou combinar as alterações;
- - Remover os marcadores de conflito;
- - Adicionar os arquivos corrigidos;
- - Criar o commit do merge.
+1. Open the conflicting files;
+2. Choose or combine the correct changes;
+3. Remove the conflict markers;
+4. Stage the corrected files;
+5. Create the merge commit.
 
-git add arquivo-com-conflito.txt
-git commit -m "Resolve conflitos de merge"
+```bash
+git add conflicted-file.txt
+git commit -m "Resolve merge conflicts"
+```
 
-## Cancelar um merge em andamento:
+Cancel an ongoing merge:
 
+```bash
 git merge --abort
+```
 
 ## 10. Rebase
 
-## O rebase reposiciona os commits de uma branch sobre outra base.
+The `rebase` command moves a branch's commits onto a new base.
 
-git switch minha-branch
+```bash
+git switch my-branch
 git rebase main
+```
 
-## Durante um conflito:
+After resolving a conflict:
 
-git add arquivo-corrigido.txt
+```bash
+git add corrected-file.txt
 git rebase --continue
+```
 
-## Cancelar o rebase:
+Cancel a rebase:
 
+```bash
 git rebase --abort
+```
 
-## O rebase mantém um histórico mais linear, mas não deve ser usado para reescrever commits que outras pessoas já utilizam.
+Rebase creates a more linear history. However, avoid rebasing commits that other people are already using.
 
-## 11. Repositórios remotos
+## 11. Remote Repositories
 
-## Visualizar os repositórios remotos:
+View remote repositories:
 
+```bash
 git remote -v
+```
 
-## Adicionar um repositório remoto:
+Add a remote repository:
 
-git remote add origin https://github.com/usuario/repositorio.git
+```bash
+git remote add origin https://github.com/user/repository.git
+```
 
-## Alterar a URL de um remoto:
+Change a remote URL:
 
-git remote set-url origin nova-url
+```bash
+git remote set-url origin NEW_URL
+```
 
-## Renomear um remoto:
+Rename a remote:
 
+```bash
 git remote rename origin upstream
+```
 
-## Remover um remoto:
+Remove a remote:
 
+```bash
 git remote remove origin
+```
 
-## 12. Push, pull e fetch
+## 12. Push, Pull, and Fetch
 
-## Enviar commits para o GitHub:
+Push commits to GitHub:
 
+```bash
 git push origin main
+```
 
-## Enviar uma nova branch e configurar o rastreamento:
+Push a new branch and set its upstream:
 
-git push -u origin minha-branch
+```bash
+git push -u origin my-branch
+```
 
-## Baixar alterações e integrá-las à branch atual:
+Download and integrate changes into the current branch:
 
+```bash
 git pull
+```
 
-## Baixar alterações sem integrá-las:
+Download changes without integrating them:
 
+```bash
 git fetch
+```
 
-## Atualizar referências remotas e remover referências excluídas:
+Update remote references and remove deleted branches:
 
+```bash
 git fetch --prune
+```
 
-## A diferença principal é:
+The main difference is:
 
- - fetch apenas baixa as informações;
- - pull executa fetch e depois merge ou rebase;
- - push envia commits locais para o remoto.
+- `fetch` only downloads information;
+- `pull` runs `fetch` and then `merge` or `rebase`;
+- `push` sends local commits to the remote repository.
 
-## 13. GitHub e colaboração
+## 13. GitHub Collaboration
 
-## Pull Request
+### Pull Requests
 
-## Um Pull Request permite propor alterações para revisão antes de incorporá-las à branch principal.
+A Pull Request allows you to propose changes for review before they are merged into the main branch.
 
-## Fluxo comum:
+Typical workflow:
 
- - Criar uma branch;
- - Fazer alterações;
- - Criar commits;
- - Enviar a branch para o GitHub;
- - Abrir um Pull Request;
- - Solicitar revisão;
- - Corrigir sugestões;
- - Fazer o merge.
+1. Create a branch;
+2. Make changes;
+3. Create commits;
+4. Push the branch to GitHub;
+5. Open a Pull Request;
+6. Request a review;
+7. Apply suggested changes;
+8. Merge the Pull Request.
 
-## Issues
+### Issues
 
-## Issues são utilizadas para:
+Issues can be used to:
 
- - Relatar problemas;
- - Criar tarefas;
- - Propor melhorias;
- - Organizar o desenvolvimento;
- - Acompanhar bugs.
+- Report problems;
+- Create tasks;
+- Suggest improvements;
+- Organize development;
+- Track bugs.
 
-## Fork
+### Forks
 
-## Um fork cria uma cópia de um repositório na conta do usuário. É comum em projetos nos quais não se possui permissão direta de escrita.
+A fork creates a copy of a repository under your GitHub account. Forks are commonly used when you do not have direct write access to a project.
 
-## Upstream
+### Upstream
 
-## Em projetos derivados de um fork, o repositório original pode ser configurado como upstream:
+In a fork-based workflow, the original repository can be configured as `upstream`:
 
-git remote add upstream https://github.com/original/projeto.git
+```bash
+git remote add upstream https://github.com/original-owner/project.git
 git fetch upstream
 git merge upstream/main
+```
 
-## 14. Autenticação
+## 14. Authentication
 
-## O GitHub não recomenda o uso de senha comum para operações Git via HTTPS. As principais alternativas são:
+GitHub does not recommend using a regular password for Git operations over HTTPS. Common alternatives include:
 
- - Personal Access Token (PAT);
- - Chaves SSH;
- - GitHub CLI;
- - Gerenciadores de credenciais.
+- Personal Access Tokens (PATs);
+- SSH keys;
+- GitHub CLI;
+- Credential managers.
 
-## Gerar uma chave SSH:
+Generate an SSH key:
 
-ssh-keygen -t ed25519 -C "seu@email.com"
+```bash
+ssh-keygen -t ed25519 -C "you@example.com"
+```
 
-## Testar a conexão:
+Test the SSH connection:
 
+```bash
 ssh -T git@github.com
+```
 
-## Nunca devem ser versionados:
+Never commit the following files or information:
 
- - Senhas;
- - Tokens;
- - Chaves privadas;
- - Arquivos .env;
- - Certificados;
- - Credenciais de banco de dados.
+- Passwords;
+- Access tokens;
+- Private keys;
+- `.env` files;
+- Certificates;
+- Database credentials.
 
-## 15. Arquivo .gitignore
+## 15. The `.gitignore` File
 
-## O .gitignore define arquivos que não devem ser rastreados.
+The `.gitignore` file defines files that Git should not track.
 
-## Exemplo:
+Example:
 
-# Dependências
+```gitignore
+# Dependencies
 node_modules/
 
-# Variáveis de ambiente
+# Environment variables
 .env
 .env.*
 
 # Logs
 *.log
 
-# Arquivos de sistema
+# Operating system files
 .DS_Store
 Thumbs.db
 
-# Diretórios de desenvolvimento
+# Development directories
 .vscode/
 .idea/
+```
 
-## Verificar arquivos ignorados:
+View ignored files:
 
+```bash
 git status --ignored
+```
 
-## 16. Tags e versões
+## 16. Tags and Versions
 
-## Criar uma tag simples:
+Create a lightweight tag:
 
+```bash
 git tag v1.0.0
+```
 
-## Criar uma tag anotada:
+Create an annotated tag:
 
-git tag -a v1.0.0 -m "Versão 1.0.0"
+```bash
+git tag -a v1.0.0 -m "Version 1.0.0"
+```
 
-## Listar tags:
+List tags:
 
+```bash
 git tag
+```
 
-## Enviar uma tag:
+Push a tag:
 
+```bash
 git push origin v1.0.0
+```
 
-## Enviar todas as tags:
+Push all tags:
 
+```bash
 git push origin --tags
+```
 
-## As tags são úteis para marcar versões estáveis e releases.
+Tags are useful for marking stable versions and releases.
 
 ## 17. Stash
 
-## O stash guarda temporariamente alterações que ainda não devem ser commitadas.
+The `stash` command temporarily stores changes that are not ready to be committed.
 
-## Guardar alterações:
+Save changes:
 
+```bash
 git stash
+```
 
-## Guardar incluindo arquivos não monitorados:
+Save changes, including untracked files:
 
+```bash
 git stash -u
+```
 
-## Listar stashes:
+List stashes:
 
+```bash
 git stash list
+```
 
-## Aplicar o último stash:
+Apply the latest stash:
 
+```bash
 git stash apply
+```
 
-## Aplicar e remover o stash:
+Apply and remove the latest stash:
 
+```bash
 git stash pop
+```
 
-## Remover um stash:
+Remove a stash:
 
+```bash
 git stash drop
+```
 
-## 18. Cherry-pick
+## 18. Cherry-Pick
 
-## O cherry-pick aplica um commit específico em outra branch:
+The `cherry-pick` command applies a specific commit to another branch:
 
-git cherry-pick <hash-do-commit>
+```bash
+git cherry-pick <commit-hash>
+```
 
-## É útil para transportar uma correção isolada sem fazer o merge de toda a branch.
+It is useful for applying an isolated fix without merging an entire branch.
 
 ## 19. Reflog
 
-## O reflog registra movimentações do HEAD, incluindo commits que aparentemente foram perdidos após um reset ou rebase.
+The `reflog` records changes to `HEAD`, including commits that may appear to have been lost after a reset or rebase.
 
+```bash
 git reflog
+```
 
-## Para recuperar um estado anterior:
+Recover a previous state:
 
-git reset --hard <hash-encontrado-no-reflog>
+```bash
+git reset --hard <hash-from-reflog>
+```
 
 ## 20. Bisect
 
-## O git bisect ajuda a encontrar qual commit introduziu um problema.
+The `git bisect` command helps identify which commit introduced a problem.
 
+```bash
 git bisect start
 git bisect bad
-git bisect good <commit-conhecidamente-correto>
+git bisect good <known-good-commit>
+```
 
-## Após testar cada versão:
+After testing each version:
 
+```bash
 git bisect good
+```
 
-## ou:
+or:
 
+```bash
 git bisect bad
+```
 
-## Finalizar:
+Finish the process:
 
+```bash
 git bisect reset
+```
 
 ## 21. Hooks
 
-## Hooks são scripts executados automaticamente em eventos do Git, como:
+Hooks are scripts that run automatically during Git events, such as:
 
- - Antes de um commit;
- - Após um commit;
- - Antes de um push;
- - Durante a aplicação de um merge.
+- Before a commit;
+- After a commit;
+- Before a push;
+- During a merge.
 
-## Podem ser usados para:
+They can be used to:
 
- - Executar testes;
- - Validar mensagens de commit;
- - Aplicar formatadores;
- - Verificar padrões de código;
- - Impedir commits inválidos.
+- Run tests;
+- Validate commit messages;
+- Apply formatters;
+- Check coding standards;
+- Prevent invalid commits.
 
 ## 22. GitHub Actions
 
-## GitHub Actions permite automatizar tarefas como:
+GitHub Actions can automate tasks such as:
 
- - Executar testes;
- - Fazer build da aplicação;
- - Verificar qualidade do código;
- - Publicar aplicações;
- - Criar releases;
- - Fazer deploy contínuo.
+- Running tests;
+- Building applications;
+- Checking code quality;
+- Publishing applications;
+- Creating releases;
+- Performing continuous deployment.
 
-## Os fluxos geralmente ficam em:
+Workflow files are usually stored in:
 
+```text
 .github/workflows/
+```
 
-## Exemplo de etapas comuns em uma pipeline:
+Common pipeline steps include:
 
- - Baixar o código;
- - Configurar o ambiente;
- - Instalar dependências;
- - Executar lint;
- - Executar testes;
- - Gerar build;
- - Publicar o resultado.
+1. Check out the code;
+2. Set up the environment;
+3. Install dependencies;
+4. Run linting;
+5. Run tests;
+6. Build the application;
+7. Publish the result.
 
-## 23. Boas práticas
+## 23. Best Practices
 
- - Fazer commits pequenos e objetivos;
- - Usar mensagens de commit claras;
- - Criar uma branch para cada tarefa;
- - Atualizar a branch antes de abrir um Pull Request;
- - Revisar o próprio código antes de enviá-lo;
- - Não versionar credenciais;
- - Evitar git push --force em branches compartilhadas;
- - Preferir git push --force-with-lease quando a reescrita for necessária;
- - Manter o README atualizado;
- - Usar tags para versões importantes;
- - Executar testes antes do push;
- - Resolver conflitos cuidadosamente;
- - Não utilizar git reset --hard sem confirmar o que será removido.
+- Create small, focused commits;
+- Write clear commit messages;
+- Create a branch for each task;
+- Update your branch before opening a Pull Request;
+- Review your own code before pushing;
+- Never commit credentials;
+- Avoid `git push --force` on shared branches;
+- Prefer `git push --force-with-lease` when rewriting history is necessary;
+- Keep the README updated;
+- Use tags for important versions;
+- Run tests before pushing;
+- Resolve conflicts carefully;
+- Do not use `git reset --hard` without confirming what will be deleted.
 
-## 24. Fluxo de trabalho recomendado
+## 24. Recommended Workflow
 
-git clone URL_DO_REPOSITORIO
-cd nome-do-projeto
+```bash
+git clone REPOSITORY_URL
+cd project-name
 
-git switch -c minha-tarefa
+git switch -c my-task
 
-# Fazer alterações nos arquivos
+# Make changes to the files
 
 git status
 git add .
-git commit -m "Implementa minha tarefa"
+git commit -m "Implement my task"
 
 git fetch origin
 git rebase origin/main
 
-git push -u origin minha-tarefa
+git push -u origin my-task
+```
 
-## Depois, deve-se abrir um Pull Request no GitHub para revisão e integração com a branch principal.
+Afterward, open a Pull Request on GitHub for review and integration into the main branch.
 
-## 25. Comandos de consulta rápida
+## 25. Quick Reference Commands
 
+```bash
 git status
 git log --oneline --graph --decorate --all
 git branch -a
@@ -578,29 +733,32 @@ git diff --staged
 git stash
 git fetch --prune
 git reflog
+```
 
-## 26. Sugestões para continuar os estudos
+## 26. Suggested Next Steps
 
- - Praticar resolução de conflitos;
- - Estudar Conventional Commits;
- - Aprender versionamento semântico;
- - Criar pipelines com GitHub Actions;
- - Configurar proteção da branch principal;
- - Utilizar CODEOWNERS;
- - Criar templates para Issues e Pull Requests;
- - Estudar GitHub Projects;
- - Aprender GitHub CLI;
- - Configurar pre-commit hooks;
- - Praticar estratégias Git Flow e trunk-based development;
- - Aprender técnicas de recuperação usando reflog;
- - Estudar segurança e gerenciamento de segredos.
+- Practice resolving conflicts;
+- Study Conventional Commits;
+- Learn semantic versioning;
+- Create GitHub Actions pipelines;
+- Configure branch protection rules;
+- Use `CODEOWNERS`;
+- Create Issue and Pull Request templates;
+- Study GitHub Projects;
+- Learn GitHub CLI;
+- Configure pre-commit hooks;
+- Practice Git Flow and trunk-based development;
+- Learn recovery techniques using `reflog`;
+- Study security and secret management.
 
-## Conclusão
+## Conclusion
 
-## Git permite controlar a evolução dos arquivos e preservar o histórico do projeto. GitHub amplia essas funcionalidades ao oferecer colaboração, revisão de código, automação e hospedagem.
+Git allows you to control the evolution of files and preserve project history. GitHub extends these capabilities by providing collaboration, code review, automation, and repository hosting.
 
-## O domínio dessas ferramentas envolve compreender o ciclo:
+The essential workflow is:
 
- - alterar → adicionar → commitar → sincronizar → revisar → integrar
+```text
+edit → stage → commit → synchronize → review → integrate
+```
 
-## A prática constante dos comandos e dos fluxos de colaboração é essencial para trabalhar com segurança e eficiência em projetos individuais ou em equipe.
+Consistent practice with Git commands and collaboration workflows is essential for working safely and efficiently on individual and team projects.
