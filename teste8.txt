@@ -1,0 +1,5 @@
+Criando arquivo e colaborando com projeto principal.
+
+teste
+
+Testando git reset
